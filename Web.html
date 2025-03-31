@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Riddle Challenge</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h2 id="riddle">Solve this riddle to proceed:</h2>
+    <button onclick="submitAnswer()">Submit Answer</button>
+
+    <script>
+        function submitAnswer() {
+            var answer = prompt("Enter the decrypted sentence:");
+            if (answer) {
+                fetch('/check-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: answer.trim() })
+                })
+                .then(response => response.json())
+                .then(data => alert(data.message));
+            }
+        }
+    </script>
+</body>
+</html>
+
